@@ -1,0 +1,143 @@
+<style>
+  .cart-container {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .cart-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f0f0f0;
+  }
+
+  .cart-item-image {
+    width: 60px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .cart-summary {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 1.2rem;
+  }
+
+  .checkout-button,
+  .remove-button {
+    display: inline-block;
+    background-color: #007ace;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .remove-button {
+    background-color: #e74c3c;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  .checkout-button:hover {
+    background-color: #005fa3;
+  }
+
+  .remove-button:hover {
+    background-color: #c0392b;
+  }
+
+  .empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+    color: #777;
+  }
+
+  @media (max-width: 600px) {
+    th, td {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+
+    .checkout-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="cart-container">
+  <h1 class="cart-title">Your Shopping Cart</h1>
+
+  {% if cart.item_count == 0 %}
+    <div class="empty-cart">
+      <p>Your cart is currently empty.</p>
+      <a href="/" class="checkout-button">Continue Shopping</a>
+    </div>
+  {% else %}
+    <form method="post" action="/cart/update">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Variant</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart.items %}
+            <tr>
+              <td>
+                {% if item.image %}
+                  <img src="{{ item.image | img_url: 'small' }}" alt="{{ item.product.title }}" class="cart-item-image">
+                {% endif %}
+                <div>{{ item.product.title }}</div>
+              </td>
+              <td>{{ item.variant.title }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price | money }}</td>
+              <td>{{ item.line_price | money }}</td>
+              <td>
+                <button type="submit" name="updates[{{ item.key }}]" value="0" class="remove-button">Remove</button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+
+    <div class="cart-summary">
+      <strong>Subtotal:</strong> {{ cart.total_price | money }} <br>
+      <a href="/checkout" class="checkout-button">Proceed to Checkout</a>
+    </div>
+  {% endif %}
+</div>

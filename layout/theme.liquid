@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{{ 'theme.css' |  asset_url   }}" type="text/css">
+    {{ content_for_header }}
+  </head>
+  <body>
+    {% section 'header'   %}
+    {{ content_for_layout }}
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<style>
+      .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 40px auto;
+        gap: 40px;
+        padding: 0 20px;
+      }
+
+      .product-image {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .product-image img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+
+      .product-details {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .product-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .product-price {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin: 15px 0;
+      }
+
+      .product-description {
+        margin-bottom: 20px;
+      }
+
+      .product-cta button {
+        background-color: #007ace;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .product-cta button:hover {
+        background-color: #005fa3;
+      }
+    </style>
+
+<div class="product-container">
+      <div class="product-image">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | img_url: "master" }}" alt="{{ product.title }}">
+        {% else %}
+          <p>No image available</p>
+        {% endif %}
+      </div>
+
+      <div class="product-details">
+        <h1 class="product-title">{{ product.title }}</h1>
+
+        <div class="product-price">
+          {{ product.price | money }}
+        </div>
+
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+
+        <div class="product-cta">
+            {% form 'product', product %}
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <button type="submit">Add to Cart</button>
+          {% endform  %}
+        </div>
+      </div>
+    </div>
