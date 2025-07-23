@@ -1,0 +1,89 @@
+<style>
+  .collection-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 32px 0 24px;
+    text-align: center;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+    padding: 0 32px 64px;
+  }
+
+  .product-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    background: #fff;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .image-wrapper {
+    height: 250px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+  }
+
+  .image-wrapper img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  .product-card-title {
+    margin: 12px 8px 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .product-card-price {
+    color: #888;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+</style>
+
+<h1 class="collection-title">{{ collection.title }}</h1>
+
+<div class="product-grid">
+  {% for product in collection.products %}
+    <div class="product-card">
+      <a href="{{ product.url }}">
+        {% if product.featured_image %}
+          <div class="image-wrapper">
+            <img src="{{ product.featured_image | image_url: width: 400, height: 400, crop: 'center' }}" alt="{{ product.title }}">
+          </div>
+        {% endif %}
+        <div class="product-card-title">{{ product.title }}</div>
+        <div class="product-card-price">{{ product.price | money }}</div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema  %}  
+{
+    "name": "Main Collection",
+    "settings": [],
+    "presets": [
+        {
+            "name": "Main Collection",
+            "category": "Collection"
+        }
+    ]
+}
+{% endschema %}

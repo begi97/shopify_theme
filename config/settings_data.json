@@ -1,0 +1,16 @@
+{
+  "current": {
+    "settings": {
+      "heading_font": {
+        "family": "Roboto",
+        "fallback_families": "sans-serif",
+        "system": false
+      },
+      "body_font": {
+        "family": "Open Sans",
+        "fallback_families": "sans-serif",
+        "system": false
+      }
+    }
+  }
+}
