@@ -1,0 +1,68 @@
+<div class="custom-button-wrapper" style="text-align: center; padding: 40px 0;">
+  <a
+    href="{{ section.settings.button_link }}"
+    class="custom-button"
+    style="
+      background-color: {{ section.settings.button_background }};
+      color: {{ section.settings.button_text_color }};
+    "
+  >
+    {{ section.settings.button_text }}
+  </a>
+</div>
+
+<style>
+  .custom-button {
+    display: inline-block;
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-button:hover {
+    opacity: 0.9;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Button Block",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Click Me"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Button",
+      "category": "Call to Action"
+    }
+  ]
+}
+{% endschema %}

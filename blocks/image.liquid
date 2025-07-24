@@ -1,0 +1,56 @@
+<style>
+  .responsive-image-block {
+    max-width: 100%;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="responsive-image-block">
+  {% if section.settings.image %}
+    <img
+      src="{{ section.settings.image | image_url: width: 800 }}"
+      srcset="
+        {{ section.settings.image | image_url: width: 480 }} 480w,
+        {{ section.settings.image | image_url: width: 768 }} 768w,
+        {{ section.settings.image | image_url: width: 1024 }} 1024w,
+        {{ section.settings.image | image_url: width: 1500 }} 1500w
+      "
+      sizes="(max-width: 768px) 100vw, 768px"
+      alt="{{ section.settings.image.alt | escape }}"
+      class="responsive-image"
+      loading="lazy"
+    >
+
+  {% else %}
+    <p>No image selected.</p>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Responsive Image Block",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Responsive Image",
+      "category": "Media"
+    }
+  ]
+}
+{% endschema %}

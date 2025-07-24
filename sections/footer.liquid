@@ -1,0 +1,136 @@
+<style>
+  .custom-footer {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .footer-menu {
+    display: flex;
+    gap: 40px;
+  }
+
+  .footer-menu ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-menu a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .newsletter {
+    max-width: 300px;
+  }
+
+  .newsletter label,
+  .newsletter input,
+  .newsletter button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .newsletter input {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  .newsletter button {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+</style>
+
+<footer class="custom-footer">
+  <div class="footer-top">
+    <div class="footer-menu">
+      {% if section.settings.menu_1 != blank %}
+        <ul>
+          {% for link in linklists[section.settings.menu_1].links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if section.settings.menu_2 != blank %}
+        <ul>
+          {% for link in linklists[section.settings.menu_2].links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="newsletter">
+      {% form 'contact' %}
+        <label for="newsletter-email">{{ section.settings.newsletter_label }}</label>
+        <input type="email" name="contact[email]" id="newsletter-email" placeholder="Email" required>
+        <button type="submit">{{ section.settings.newsletter_button }}</button>
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="footer-bottom">Made by Bahruz</div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "First Footer Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Second Footer Menu"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_label",
+      "label": "Newsletter Label",
+      "default": "Subscribe to our newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Newsletter Button Text",
+      "default": "Subscribe"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer with Menus & Newsletter"
+    }
+  ]
+}
+{% endschema %}

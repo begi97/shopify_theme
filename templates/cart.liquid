@@ -93,11 +93,11 @@
 </style>
 
 <div class="cart-container">
-  <h1 class="cart-title">Your Shopping Cart</h1>
+  <h1 class="cart-title">{{ 'cart.title' | t }}</h1>
 
   {% if cart.item_count == 0 %}
     <div class="empty-cart">
-      <p>Your cart is currently empty.</p>
+      <p>{{ 'cart.empty' | t }}</p>
       <a href="/" class="checkout-button">Continue Shopping</a>
     </div>
   {% else %}

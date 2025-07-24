@@ -65,7 +65,10 @@
       <a href="{{ product.url }}">
         {% if product.featured_image %}
           <div class="image-wrapper">
-            <img src="{{ product.featured_image | image_url: width: 400, height: 400, crop: 'center' }}" alt="{{ product.title }}">
+            <img
+              src="{{ product.featured_image | image_url: width: 400, height: 400, crop: 'center' }}"
+              alt="{{ product.title }}"
+            >
           </div>
         {% endif %}
         <div class="product-card-title">{{ product.title }}</div>
@@ -75,15 +78,15 @@
   {% endfor %}
 </div>
 
-{% schema  %}  
+{% schema %}
 {
-    "name": "Main Collection",
-    "settings": [],
-    "presets": [
-        {
-            "name": "Main Collection",
-            "category": "Collection"
-        }
-    ]
+  "name": "Main Collection",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Main Collection",
+      "category": "Collection"
+    }
+  ]
 }
 {% endschema %}
